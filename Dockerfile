@@ -19,9 +19,9 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && mkdir -p /steamcmd \
     && cd /steamcmd \
-    && curl "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" > steamcmd.tar.gz \
+    && wget "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" -O steamcmd.tar.gz \
     && tar zxvf steamcmd.tar.gz \
     && rm steamcmd.tar.gz \
-    && ./steamcmd.sh +@sSteamCmdForcePlatformType windows +login anonymous +force_install_dir /games/app/theforest +app_update 556450 validate +quit
+    && ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir +login anonymous /games/app/theforest +app_update 556450 validate +quit
 
 CMD xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine /games/app/theforest/TheForestDedicatedServer.exe -batchmode -nographics -savefolderpath /games/data/theforest/saves/ -configfilepath /games/data/theforest/config/config.cfg
