@@ -25,5 +25,5 @@ wait_for_process_exit() {
 
 wait_for_exit_signal() {
     trap 'echo "Got exit signal...";get_process_id ${1};wait_for_process_exit ${pidNum};exit 1' INT HUP QUIT TERM
-    while true; do : ; done
+    wait $!
 }
