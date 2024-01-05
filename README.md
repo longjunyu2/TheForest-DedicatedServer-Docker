@@ -53,4 +53,6 @@ In this instance USER_ID=1000 and GROUP_ID=1000, to find yours use id your_user 
 ```id <your_user>```  
 Example output:  
 ```uid=1000(your_user) gid=1000(your_user) groups=1000(your_user)```
-    
+
+## Pull From DockerHub
+```docker pull longjunyu/theforest-server```
