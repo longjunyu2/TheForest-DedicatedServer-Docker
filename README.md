@@ -49,8 +49,8 @@ There are also some additional parameters that can be set to the container.
 ## User / Group Identifiers
 When using volumes (-v flags), permissions issues can arise between the host OS and the container, we avoid this issue by allowing you to specify the user PUID and group PGID.</br></br>
 Ensure any volume directories on the host are owned by the same user you specify and any permissions issues will vanish.</br>
-In this instance USER_ID=1000 and GROUP_ID=1000, to find yours use id your_user as below:
-```id <your_user>```
-Example output:
+In this instance USER_ID=1000 and GROUP_ID=1000, to find yours use id your_user as below:</br>
+```id <your_user>```</br>
+Example output:</br>
 ```uid=1000(your_user) gid=1000(your_user) groups=1000(your_user)```
     
