@@ -1,0 +1,41 @@
+#!/bin/bash
+
+userName="game"
+groupName="game"
+
+dataPath="/data"
+installPath="${dataPath}/game"
+configPath="${dataPath}/config"
+savesPath="${configPath}/saves/"
+cfgPath="${configPath}/config.cfg"
+
+updateCmd="steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir ${installPath} +login anonymous +app_update 556450 +quit"
+startCmd="xvfb-run --auto-servernum --server-args='-screen 0 640x480x24:32' wine ${installPath}/TheForestDedicatedServer.exe -batchmode -nographics -savefolderpath ${savesPath} -configfilepath ${cfgPath}"
+
+check_user() {
+    if [ ! "$(id -u ${userName})" -eq "$USER_ID" ]; then
+        usermod -o -u "$USER_ID" ${userName}
+        echo "User id set to ${USER_ID}"
+    fi
+    if [ ! "$(id -g ${groupName})" -eq "$GROUP_ID" ]; then
+        groupmod -o -g "$GROUP_ID" ${groupName}
+        echo "User group set to ${GROUP_ID}"
+    fi
+    echo "User checked ok..."
+}
+
+check_dir() {
+    chown -R ${userName}:${userGroup} ${configPath}
+    echo "Dir checked ok..."
+}
+
+update_server() {
+    check_user
+    check_dir
+    su - ${userName} -s /bin/bash -c "${updateCmd}"
+}
+
+start_server() {
+    update_server
+    su - ${userName} -s /bin/bash -c "${startCmd}"
+}

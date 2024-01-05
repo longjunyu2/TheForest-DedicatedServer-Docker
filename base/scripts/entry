@@ -1,0 +1,9 @@
+#!/bin/bash
+dir=$(dirname ${0})
+source "${dir}/tools"
+source "${dir}/server"
+
+pidName="steamcmd"
+
+update_server &
+wait_for_exit_signal ${pidName}

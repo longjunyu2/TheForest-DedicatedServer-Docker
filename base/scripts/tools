@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pidNum=""
+
+get_process_id() {
+    pidNum=""
+    while [ -z ${pidNum} ];
+    do
+        sleep 2
+        echo "Trying to get process id..."
+        pidNum=$(pgrep -f ${1} | awk "NR==1")
+    done
+    echo "Got process id: ${pidNum}"
+    result=${pidNum}
+}
+
+wait_for_process_exit() {
+    local pidKilled=${1}
+    kill ${pidKilled}
+    while kill -0 ${pidKilled} > /dev/null 2>&1; do
+        echo "Waiting for process exit..."
+        sleep 2
+    done
+}
+
+wait_for_exit_signal() {
+    trap 'echo "Got exit signal...";get_process_id ${1};wait_for_process_exit ${pidNum};exit 1' INT HUP QUIT TERM
+    while true; do : ; done
+}

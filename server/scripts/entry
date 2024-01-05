@@ -1,0 +1,9 @@
+#!/bin/bash
+dir=$(dirname ${0})
+source "${dir}/tools"
+source "${dir}/server"
+
+pidName="TheForestDedicatedServer"
+
+start_server &
+wait_for_exit_signal ${pidName}
