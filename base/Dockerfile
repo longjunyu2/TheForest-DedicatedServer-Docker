@@ -17,9 +17,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
 	
 COPY scripts/* /data/scripts
 
-RUN chmod -R 755 /data/scripts
-
-RUN source /data/scripts/server; update_server
+RUN chmod -R 755 /data/scripts \
+    && source /data/scripts/server \
+    && update_server
 
 ENTRYPOINT [""]
 
